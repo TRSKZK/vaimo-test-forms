@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+
+
+import React, { useState}from 'react'
+import styled from 'styled-components'
+import { Form } from './Form';
+
+
+
+
+
+// const RegionStyled = styled(RegionDropdown)`
+// width: 150px;
+// border: 2px solid black;
+// height:50px;
+
+// `
+
+const Header = styled.h1`
+text-align:center;
+`
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header>Create New Customer Account</Header>
+      <Form/>
     </div>
   );
 }
+
+// const [country, setCounty] = useState(``)
+//   const [region, setRegion] = useState(``)
+
+{/* <CountryDropdown value={country} onChange={(val)=> setCounty(val)} />
+      <RegionStyled  country={country} value={ region}/> */}
 
 export default App;
