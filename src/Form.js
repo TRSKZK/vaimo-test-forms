@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
+import { AccountInformation } from './AccountInformation'
 
 
 
@@ -14,7 +15,7 @@ padding: 20px;
 
 `
 
-const Line = styled.hr`
+export const Line = styled.hr`
 width: 700px;
 margin-top: 10px;
 
@@ -103,10 +104,13 @@ const CreateButton = styled.button`
 margin-top: 15px;
 width:200px;
 height: 50px;
-background-color: ${props=> props.disabled ? '#A0A0A0' : 'black'};
+background-color: ${props => props.disabled ? '#A0A0A0' : 'black'};
+cursor:pointer;
 color:white;
 
 `
+
+
 
 export const Form = () => {
     const [firstName, setFirstName] = useState('')
@@ -119,7 +123,25 @@ export const Form = () => {
     const [country, setCounty] = useState(``)
     const [region, setRegion] = useState(``)
     const [zipCode, setZipCode] = useState('')
+    const [checked, setChecked] = useState(false)
+    const [visibility, setVisibility] = useState(false)
     let disabled;
+
+    const info = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        phone: phone,
+        street: street,
+        country: country,
+        region: region,
+        zipCode: zipCode,
+        checkbox: checked,
+    }
+
+    
 
     const fieldsCheck = () => {
         firstName && lastName && email && password && confirmPassword && phone && street
@@ -142,7 +164,7 @@ export const Form = () => {
                 onChange={(e)=> setLastName(e.target.value)}
                 />
                 <div>
-                    <CheckBox type='checkbox' id='newsletter' name='subscription' />
+                    <CheckBox onChange={()=> setChecked(!checked)} type='checkbox' id='newsletter' name='subscription' />
                     <Label htmlFor='newsletter'>Sign up for Newsletter</Label>
                 </div>
 
@@ -190,9 +212,17 @@ export const Form = () => {
                 
                 <CreateButton
                     type='submit'
-                 disabled={disabled}
-                >Create Account</CreateButton>
+                    disabled={disabled}
+                    
+                    onClick={(e) => {
+                        e.preventDefault()
+                        setVisibility(true)
+                    } }
+                >Create an Account</CreateButton>
             </form>
+
+            <AccountInformation visible={visibility} info={info}/>
+
         </Container>
     )
 }
