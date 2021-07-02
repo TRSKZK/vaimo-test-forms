@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 
 
@@ -49,7 +51,62 @@ width:200px;
 
 `
 
+const AdressInfo = styled.h2`
+margin-top: 30px;
 
+`
+
+const RegionStyled = styled(RegionDropdown)`
+width:700px;
+height: 30px;
+margin-top: 10px;
+color:#A0A0A0;
+border-color:#A0A0A0;
+padding: 3px;
+&:focus{
+    outline: none;
+}
+
+`
+
+const StyledPhoneInput = styled(PhoneInput)`
+width:700px;
+height: 30px;
+margin-top: 10px;
+
+padding: 3px;
+&:focus{
+    outline: none;
+}
+
+`
+
+const StyledCountryDropDown = styled(CountryDropdown)`
+width:700px;
+height: 30px;
+margin-top: 10px;
+color: #A0A0A0;
+padding: 3px;
+border-color:#A0A0A0;
+&:focus{
+    outline: none;
+}
+`
+
+const RequiredFields = styled.p`
+color: red;
+margin-top: 10px;
+
+`
+
+const CreateButton = styled.button`
+margin-top: 15px;
+width:200px;
+height: 50px;
+background-color: black;
+color:white;
+
+`
 
 export const Form = () => {
     const [firstName, setFirstName] = useState('')
@@ -57,12 +114,18 @@ export const Form = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [phone, setPhone] = useState('')
+    const [street, setStreet] = useState('')
+    const [country, setCounty] = useState(``)
+    const [region, setRegion] = useState(``)
+    const [zipCode, setZipCode] = useState('')
 
 
    
     return (
         <Container>
             <form>
+
                 <h2>Personal Information</h2>
                 <Line/>
                 <StyledInput value={firstName}
@@ -93,9 +156,34 @@ export const Form = () => {
                     value={confirmPassword}
                     onChange={(e)=> setConfirmPassword(e.target.value)}
                 />
-                {password === confirmPassword ? '' : <WarningMessage>Passwords doesn't march </WarningMessage> }
+                {password === confirmPassword ? '' : <WarningMessage>Passwords doesn't march </WarningMessage>}
+                
+                <AdressInfo>Adress Information</AdressInfo>
+                <Line/>
 
+                <StyledPhoneInput className='phone-input' placeholder='Enter your phone number'
+                    value={phone}
+                    onChange={setPhone} />
 
+                <StyledInput  placeholder='Street Adress *'
+                    value={street}
+                    onChange={(e)=> setStreet(e.target.value)}
+                />
+
+                <StyledCountryDropDown value={country}
+                    onChange={(val) => setCounty(val)} />
+                
+                <RegionStyled country={country}
+                    value={region} onChange={(val) => setRegion(val)} />
+                
+                <StyledInput placeholder='Zip Code *'
+                    value={zipCode}
+                    onChange={(e)=> setZipCode(e.target.value)}
+                />
+                
+                <RequiredFields>Required fields *</RequiredFields>
+                
+                <CreateButton type='submit'>Create Account</CreateButton>
             </form>
         </Container>
     )
