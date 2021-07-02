@@ -103,7 +103,7 @@ const CreateButton = styled.button`
 margin-top: 15px;
 width:200px;
 height: 50px;
-background-color: black;
+background-color: ${props=> props.disabled ? '#A0A0A0' : 'black'};
 color:white;
 
 `
@@ -119,9 +119,14 @@ export const Form = () => {
     const [country, setCounty] = useState(``)
     const [region, setRegion] = useState(``)
     const [zipCode, setZipCode] = useState('')
+    let disabled;
 
+    const fieldsCheck = () => {
+        firstName && lastName && email && password && confirmPassword && phone && street
+        && country && region && zipCode ? disabled = false : disabled = true
+     }
 
-   
+     fieldsCheck()
     return (
         <Container>
             <form>
@@ -183,7 +188,10 @@ export const Form = () => {
                 
                 <RequiredFields>Required fields *</RequiredFields>
                 
-                <CreateButton type='submit'>Create Account</CreateButton>
+                <CreateButton
+                    type='submit'
+                 disabled={disabled}
+                >Create Account</CreateButton>
             </form>
         </Container>
     )
